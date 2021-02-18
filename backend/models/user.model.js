@@ -11,6 +11,9 @@ const user = new Schema({
     dateJoined: {
         type: Date, required: true, default: Date.now
     },
+    rooms: {
+        type: Array, default: []
+    }
 }, {
     timestamps: true,
 });
