@@ -8,14 +8,8 @@ const room = new Schema({
     dateCreated: {
         type: Date, required: true, default: Date.now
     },
-    users: [String]
 }, {
     timestamps: true,
 });
-
-room.statics.findchats = function (username, cb) {
-    return this.find(cb)
-        .where('users', username)
-}
 
 module.exports = mongoose.model("room", room)
