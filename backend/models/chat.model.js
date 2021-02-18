@@ -8,6 +8,9 @@ const chat = new Schema({
     message: {
         type: String, required: true
     },
+    roomName: {
+        type: String, required: true
+    },
     date: {
         type: Date, required: true
     },
@@ -15,4 +18,9 @@ const chat = new Schema({
     timestamps: true,
 });
 
-module.exports = mongoose.model("chat", chat);
+chat.statics.findchats = function (roomName, cb) {
+    return this.find(cb)
+        .where('roomName', roomName)
+}
+
+module.exports = mongoose.model("chat", chat)

@@ -20,7 +20,7 @@ connection.once('open', () => {
 
 /*
 const chatRouter = require('./routes/chats');
- const userRouter = require('./routes/users');
+const userRouter = require('./routes/users');
 
 app.use('/chats', chatRouter);
 app.use('/users', userRouter);
