@@ -12,4 +12,8 @@ const room = new Schema({
     timestamps: true,
 });
 
-module.exports = mongoose.model("room", room)
+room.statics.findAllRooms = function(cb){
+    return this.find(vb);
+};
+
+module.exports = mongoose.model("room", room);

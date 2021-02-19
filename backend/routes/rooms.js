@@ -7,3 +7,4 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(r00).json('Error ' + err));
 });
 
+module.exports = router;

@@ -20,7 +20,7 @@ const chat = new Schema({
 
 chat.statics.findchats = function (roomName, cb) {
     return this.find(cb)
-        .where('roomName', roomName)
-}
+        .where('roomName', roomName);
+};
 
-module.exports = mongoose.model("chat", chat)
+module.exports = mongoose.model("chat", chat);

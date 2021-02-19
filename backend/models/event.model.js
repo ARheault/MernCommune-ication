@@ -15,7 +15,7 @@ const event = new Schema({
 
 event.statics.logEvent = function (val, cb) {
     const theEvent = new this(val);
-    theEvent.save(cb)
-}
+    theEvent.save(cb);
+};
 
-module.exports = mongoose.model("event", chat)
+module.exports = mongoose.model("event", event);
