@@ -31,7 +31,7 @@ router.route('/allrooms').get(async (req, res) => {
   console.log(username);
   if (aUser) {
     if (aUser.rooms) {
-      return res.aUser.rooms;
+      return res.send(aUser.rooms);
     }
     else {
       return [];
