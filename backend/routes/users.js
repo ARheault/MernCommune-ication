@@ -11,10 +11,12 @@ router.route('/add').post((req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const date = Date.parse(req.body.date);
+  const rooms = req.body.rooms;
 
   const newUser = new User({
       username,
       password,
+      rooms,
       date,
     });
 
@@ -23,10 +25,14 @@ router.route('/add').post((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/allrooms').get((req, res) => {
-  User.find({username: req.body.username})
-  .then(users => res.json(users.rooms))
-  .catch(err => res.status(400).json('Error: ' + err));
+router.route('/allrooms').get(async (req, res) => {
+  var aUser = await User.find({username: req.body.username});
+  if(aUser){
+    return aUser.rooms;
+  }
+  else{
+    return [];
+  }
 });
 
 module.exports = router;

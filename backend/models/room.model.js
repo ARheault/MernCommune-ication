@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const room = new Schema({
+const Room = new Schema({
     roomName: {
         type: String, required: true
     },
@@ -12,8 +12,8 @@ const room = new Schema({
     timestamps: true,
 });
 
-room.statics.findAllRooms = function(cb){
-    return this.find(vb);
+Room.statics.findAllRooms = function(cb){
+    return this.find(cb);
 };
 
-module.exports = mongoose.model("room", room);
+module.exports = mongoose.model("Room", Room);

@@ -28,7 +28,7 @@ connection.once('open', () => {
 
 const eventRouter = require('./routes/events');
 const userRouter = require('./routes/users');
-const roomRouter = require('./routes/users');
+const roomRouter = require('./routes/rooms');
 
 app.use('/users', userRouter);
 app.use('/events', eventRouter);

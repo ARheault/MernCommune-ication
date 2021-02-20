@@ -8,7 +8,7 @@ const Schema = mongoose.Schema;
  * @dateJoined This is the date and time that the user joined the app
  * @rooms This is a string array that holds the names of every room the user has access to
  */
-const user = new Schema({
+const User = new Schema({
     username: {
         type: String, required: true
     },
@@ -25,13 +25,13 @@ const user = new Schema({
     timestamps: true,
 });
 
-user.static.findrooms = function (cb) {
-    return find();
+User.static.findrooms = function (cb) {
+    return this.find();
 };
 
-user.statics.getrooms = function(username, cb) {
+User.statics.getrooms = function(username, cb) {
     return this.find(cb).rooms
     .where('username', username);
 };
 
-module.exports = mongoose.model("user", user);
+module.exports = mongoose.model("User", User);
