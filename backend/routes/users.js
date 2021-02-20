@@ -27,19 +27,21 @@ router.route('/add').post((req, res) => {
 
 router.route('/allrooms').get(async (req, res) => {
   const username = req.body.username;
-  var aUser = await User.find({ username });
+  var aUser = await User.find({ username: username });
   console.log(username);
   if (aUser) {
-    if (aUser.rooms) {
+    console.log(aUser);
+    /* if (aUser.rooms) {
       return res.aUser.rooms;
     }
     else {
       return [];
-    }
+    } */
   }
   else {
     return [];
   }
+  res.send("hello world");
 });
 
 module.exports = router;
