@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const chat = new Schema({
+const Chat = new Schema({
     senderName: {
         type: String, required: true
     },
@@ -12,15 +12,15 @@ const chat = new Schema({
         type: String, required: true
     },
     date: {
-        type: Date, required: true
+        type: Date, required: true, default: Date.now
     },
 }, {
     timestamps: true,
 });
 
-chat.statics.findchats = function (roomName, cb) {
+Chat.statics.findchats = function (roomName, cb) {
     return this.find(cb)
         .where('roomName', roomName);
 };
 
-module.exports = mongoose.model("chat", chat);
+module.exports = mongoose.model("Chat", Chat);

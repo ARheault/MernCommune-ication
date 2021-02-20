@@ -29,10 +29,12 @@ connection.once('open', () => {
 const eventRouter = require('./routes/events');
 const userRouter = require('./routes/users');
 const roomRouter = require('./routes/rooms');
+const chatRouter = require('./routes/chats');
 
 app.use('/users', userRouter);
 app.use('/events', eventRouter);
 app.use('/rooms', roomRouter);
+app.use('/chats', chatRouter);
 
 
 // listening
