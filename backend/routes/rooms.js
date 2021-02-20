@@ -11,6 +11,7 @@ router.route('/').get((req, res) => {
 router.route('/add').post((req, res) => {
     const roomName = req.body.roomName;
     const date = Date.parse(req.body.date);
+    console.log(date);
     const newRoom = new Room({
         roomName,
         date,
@@ -22,13 +23,15 @@ router.route('/add').post((req, res) => {
 });
 
 router.route('/getchat').get(async (req, res) => {
-    var aRoom =  chat.findchats(req.body.roomName);//Room.find({ roomName: req.body.roomName })
-    if (aRoom[0]) {
-        res.send(chat.findchats(aRoom[0].roomName));
-    }
-    else{
-        console.log("wasn't found!");
-        res.send("Wasn't found!");
-    }
+    const roomName = req.body.roomName;
+    chat.findchats(roomName, (err, result) => {
+        if (err) {
+            return err;
+        }
+        return result;
+    })
+        .then((result) => res.status(200).json(result))
+        .catch((err) => res.status(400).json('Error' + err));
 });
+
 module.exports = router;

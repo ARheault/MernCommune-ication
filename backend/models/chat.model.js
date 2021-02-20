@@ -8,11 +8,11 @@ const Chat = new Schema({
     message: {
         type: String, required: true
     },
-    roomName: {
+    roomName:{ 
         type: String, required: true
     },
     date: {
-        type: Date, required: true, default: Date.now
+        type: Date, required: true, default: Date.now()
     },
 }, {
     timestamps: true,

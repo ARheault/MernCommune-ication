@@ -6,7 +6,7 @@ const Room = new Schema({
         type: String, required: true
     },
     dateCreated: {
-        type: Date, required: true, default: Date.now
+        type: Date, required: true, default: Date.now()
     },
 }, {
     timestamps: true,
