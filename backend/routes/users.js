@@ -14,11 +14,11 @@ router.route('/add').post((req, res) => {
   const rooms = req.body.rooms;
 
   const newUser = new User({
-      username,
-      password,
-      rooms,
-      date,
-    });
+    username,
+    password,
+    rooms,
+    date,
+  });
 
   newUser.save()
     .then(() => res.json('User added!'))
@@ -26,11 +26,18 @@ router.route('/add').post((req, res) => {
 });
 
 router.route('/allrooms').get(async (req, res) => {
-  var aUser = await User.find({username: req.body.username});
-  if(aUser){
-    return aUser.rooms;
+  const username = req.body.username;
+  var aUser = await User.find({ username });
+  console.log(username);
+  if (aUser) {
+    if (aUser.rooms) {
+      return res.aUser.rooms;
+    }
+    else {
+      return [];
+    }
   }
-  else{
+  else {
     return [];
   }
 });
