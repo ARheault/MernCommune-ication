@@ -30,15 +30,8 @@ router.route('/allrooms').get(async (req, res) => {
   var aUser = await User.find({ username });
   console.log(username);
   if (aUser) {
-    if (aUser.rooms) {
-      return res.send(aUser.rooms);
-    }
-    else {
-      return [];
-    }
-  }
-  else {
-    return [];
+    console.log(aUser);
+    res.send(aUser.rooms);
   }
 });
 
