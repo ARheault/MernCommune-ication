@@ -32,6 +32,7 @@ router.route('/allrooms').get(async (req, res) => {
   if (aUser) {
     console.log(aUser);
     res.send(aUser[0].rooms);
+
     /* if (aUser.rooms) {
       return res.aUser.rooms;
 
