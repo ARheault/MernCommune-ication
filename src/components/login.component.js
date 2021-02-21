@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+/*
+import Popup from 'react-popup';
+import ReactDom from 'react-dom';
+
+ReactDom.render(
+    <Popup />,
+    document.getElementById('popupContaner')
+); */
 
 export default class login extends Component {
     constructor(props) {
@@ -43,10 +51,11 @@ export default class login extends Component {
         console.log(userToLogin);
         var loginSuccess = 2;
         var success = 1;
-        if(loginSuccess == success){
+        if(loginSuccess === success){
             window.location = '/';
         }
         else{
+            // Render a popup that says the login was wrong
             window.location = '/login';
         }
         
