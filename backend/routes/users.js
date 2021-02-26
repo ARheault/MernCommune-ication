@@ -20,7 +20,7 @@ router.route('/login').get(async (req, res) => {
   var theUser = await User.find({ username: req.body.username });
   if (theUser.length > 0) {
     if (theUser[0].password === req.body.password) {
-      res.send("You're logged in!");
+      res.send("success");
       return theUser[0];
       /**
        * Hopefully I can develop some sort of cookie system for this.

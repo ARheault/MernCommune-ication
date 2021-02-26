@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-/*
-import Popup from 'react-popup';
-import ReactDom from 'react-dom';
-
-ReactDom.render(
-    <Popup />,
-    document.getElementById('popupContaner')
-); */
+import axios from 'axios';
 
 export default class login extends Component {
     constructor(props) {
@@ -22,12 +15,6 @@ export default class login extends Component {
             password: '',
         };
     }
-
-    /*        this.componentDidMount() {
-                this.setState({
-    
-                });
-            } */
 
     onChangeUsername(e) {
         this.setState({
@@ -49,16 +36,19 @@ export default class login extends Component {
         };
 
         console.log(userToLogin);
-        var loginSuccess = 2;
-        var success = 1;
-        if(loginSuccess === success){
-            window.location = '/';
-        }
-        else{
-            // Render a popup that says the login was wrong
-            window.location = '/login';
-        }
-        
+        axios.get('http://localhost:5000/users/login', userToLogin)
+            .then(res => {
+                console.log(res.data);
+                /*
+                if(res.data === 'success'){
+                    window.location = '/';
+                }
+                else{
+                    window.location = '/login';
+                }
+                */
+            }
+            );
     }
 
     render() {

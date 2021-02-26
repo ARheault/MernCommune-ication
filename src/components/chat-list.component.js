@@ -1,7 +1,15 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+// import axios from 'axios';
 
 export default class ChatList extends Component {
+  /*  componentDidMount() {
+        axios.get('http:localhost:5000/users/')
+            .then(response => {
+
+            });
+    } */
     render() {
         return (
             <div>
