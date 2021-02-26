@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-export default class login extends Component {
+export default class loginFailedAttempt extends Component {
     constructor(props) {
         super(props);
 
@@ -70,7 +70,9 @@ export default class login extends Component {
                 <p></p>
                 <h3>Login</h3>
                 <form onSubmit={this.onSubmit}>
-
+                    <div className="form-group">
+                        <label>Your previous login attempt failed please try again</label>
+                    </div> 
                     <div className="form-group">
                         <label>Username</label>
                         <input type="text"

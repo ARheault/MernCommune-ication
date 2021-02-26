@@ -4,12 +4,29 @@ import { Link } from 'react-router-dom';
 // import axios from 'axios';
 
 export default class ChatList extends Component {
-  /*  componentDidMount() {
-        axios.get('http:localhost:5000/users/')
-            .then(response => {
+    constructor(props) {
+        super(props);
 
+       //  this.onSubmit.bind(this);
+
+        this.state = {
+            rooms: [],
+            roomName: ''
+        };
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:5000/rooms/')
+            .then(response => {
+                if(response.data.length > 0){
+                    console.log(response.data);
+                    this.setState({
+                        chats: response.data.map( room => room.roomName),
+                    });
+                }
             });
-    } */
+    } 
+
     render() {
         return (
             <div>
@@ -27,6 +44,17 @@ export default class ChatList extends Component {
                 </nav>
 
                 <p>This is the ChatList</p>
+                <div>
+                    <label>Chat rooms:</label>
+                    {
+                        this.state.rooms.map(function(room) {
+                            return <option
+                            key={room}
+                            value={room}>{room}
+                            </option>;
+                        })
+                    }
+                </div>
             </div>
         )
     }

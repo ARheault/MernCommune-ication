@@ -16,7 +16,7 @@ router.route('/').get((req, res) => {
  * @param req.body.password This is the password that is input by the client in the body of the json.
  * @return It returns the user that has logged in. This allows the Client to have an up to date version of itself.
  */
-router.route('/login').get(async (req, res) => {
+router.route('/login').post(async (req, res) => {
   var theUser = await User.find({ username: req.body.username });
   if (theUser.length > 0) {
     if (theUser[0].password === req.body.password) {

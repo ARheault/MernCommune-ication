@@ -8,11 +8,13 @@ export default class register extends Component {
 
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
+        this.onChangePassword1 = this.onChangePassword1.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             username: '',
             password: '',
+            password1: '',
         };
     }
 
@@ -28,18 +30,29 @@ export default class register extends Component {
         });
     }
 
+     onChangePassword1(e) {
+        this.setState({
+            password1: e.target.value
+        });
+    }
+
     onSubmit(e) {
         e.preventDefault();
         const userToLogin = {
             username: this.state.username,
-            password: this.state.password
+            password: this.state.password,
+            password1: this.state.password1
         };
-
-        console.log(userToLogin);
-        axios.post('http://localhost:5000/users/add', userToLogin)
-            .then(res => console.log(res.data));
+        if (userToLogin.password === userToLogin.password1) {
+            console.log(userToLogin);
+            axios.post('http://localhost:5000/users/add', userToLogin)
+                .then(res => console.log(res.data));
+            window.location = '/login';
+        }
+        else {
+            window.location = '/register';
+        }
     }
-
 
     render() {
         return (
@@ -77,6 +90,12 @@ export default class register extends Component {
                             className="form-control"
                             value1={this.state.password}
                             onChange={this.onChangePassword}
+                        />
+                        <label>Re-enter Password</label>
+                        <input type="text"
+                            className="form-control"
+                            value2={this.state.password1}
+                            onChange={this.onChangePassword1}
                         />
                     </div>
 
