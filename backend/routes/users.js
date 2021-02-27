@@ -17,10 +17,7 @@ router.route('/').get((req, res) => {
  * @return It returns the user that has logged in. This allows the Client to have an up to date version of itself.
  */
 router.route('/login').post(async (req, res) => {
-<<<<<<< HEAD
-  console.log(req.body)
-=======
->>>>>>> 2bff6376a0e68d8549cd69b209c1bddd8dc638b5
+  console.log(req.body);
   var theUser = await User.find({ username: req.body.username });
   if (theUser.length > 0) {
     if (theUser[0].password === req.body.password) {

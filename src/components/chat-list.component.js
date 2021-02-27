@@ -59,7 +59,8 @@ export default class ChatList extends Component {
                             </Link>
                         </div>
                     ))}
-                {/*
+                {
+               /*
                 <div>
                     <label>Chat rooms:</label>
                     <select
@@ -76,7 +77,8 @@ export default class ChatList extends Component {
                         }
                     </select>
                 </div>
-              */}
+              */
+              }
             </div>
         )
     }
