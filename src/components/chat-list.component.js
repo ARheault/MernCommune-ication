@@ -1,14 +1,12 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import axios from 'axios';
 
 export default class ChatList extends Component {
     constructor(props) {
         super(props);
 
         this.onChangeCurrentRoom = this.onChangeCurrentRoom.bind(this);
-        // this.onSubmit.bind(this);
 
         this.state = {
             rooms: [],
@@ -19,16 +17,16 @@ export default class ChatList extends Component {
     componentDidMount() {
         axios.get('http://localhost:5000/rooms/')
             .then(response => {
-                if(response.data.length > 0){
+                if (response.data.length > 0) {
                     console.log(response.data);
                     this.setState({
-                        rooms: response.data.map( room => room.roomName),
+                        rooms: response.data.map(room => room.roomName),
                     });
                 }
             });
-    } 
+    }
 
-    onChangeCurrentRoom(e){
+    onChangeCurrentRoom(e) {
         this.setState({
             currentRoom: e.target.value
         });
@@ -51,6 +49,17 @@ export default class ChatList extends Component {
                 </nav>
 
                 <p>This is the ChatList</p>
+                {
+                    this.state.rooms.map((chatroom) => (
+                        <div key={chatroom} className="chatroom">
+                            {console.log(chatroom)}
+                            <div>{chatroom}</div>
+                            <Link to={"/chatroom/" + chatroom}>
+                                <div className="join">Join</div>
+                            </Link>
+                        </div>
+                    ))}
+                {/*
                 <div>
                     <label>Chat rooms:</label>
                     <select
@@ -58,15 +67,16 @@ export default class ChatList extends Component {
                         className="form-control"
                         value={this.state.currentRoom}
                         onChange={this.onChangeCurrentRoom}>
-                        {this.state.rooms.map(function(room){
+                        {this.state.rooms.map(function (room) {
                             return <option
                                 key={room}
                                 value={room}>{room}
-                                </option>;
+                            </option>;
                         })
                         }
                     </select>
                 </div>
+              */}
             </div>
         )
     }

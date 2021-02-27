@@ -31,7 +31,7 @@ router.route('/login').post(async (req, res) => {
     res.send("Wrong password, please try again");
   }
   else {
-    res.send("There is no user by that name, please try to re-enter the correct username.")
+    res.send("There is no user by that name, please try to re-enter the correct username.");
   }
 });
 

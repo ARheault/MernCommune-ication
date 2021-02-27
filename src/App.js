@@ -8,6 +8,7 @@ import register from "./components/register.component";
 import homepage from "./components/homepage.component";
 import about from "./components/about-us.component";
 import loginFailedAttempt from "./components/loginFailedAttempt.component";
+import chatroom from "./components/chatroom.component";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path="/register" exact component={register} />
       <Route path="/about" exact component={about} />
       <Route path="/loginFailedAttempt" exact component={loginFailedAttempt} />
+      <Route path="/chatroom/:id" exact component={chatroom} />
     </div>
     </Router>
   );
