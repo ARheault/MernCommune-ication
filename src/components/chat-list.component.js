@@ -7,11 +7,12 @@ export default class ChatList extends Component {
     constructor(props) {
         super(props);
 
-       //  this.onSubmit.bind(this);
+        this.onChangeCurrentRoom = this.onChangeCurrentRoom.bind(this);
+        // this.onSubmit.bind(this);
 
         this.state = {
             rooms: [],
-            roomName: ''
+            currentRoom: ''
         };
     }
 
@@ -21,11 +22,17 @@ export default class ChatList extends Component {
                 if(response.data.length > 0){
                     console.log(response.data);
                     this.setState({
-                        chats: response.data.map( room => room.roomName),
+                        rooms: response.data.map( room => room.roomName),
                     });
                 }
             });
     } 
+
+    onChangeCurrentRoom(e){
+        this.setState({
+            currentRoom: e.target.value
+        });
+    }
 
     render() {
         return (
@@ -46,14 +53,19 @@ export default class ChatList extends Component {
                 <p>This is the ChatList</p>
                 <div>
                     <label>Chat rooms:</label>
-                    {
-                        this.state.rooms.map(function(room) {
+                    <select
+                        required
+                        className="form-control"
+                        value={this.state.currentRoom}
+                        onChange={this.onChangeCurrentRoom}>
+                        {this.state.rooms.map(function(room){
                             return <option
-                            key={room}
-                            value={room}>{room}
-                            </option>;
+                                key={room}
+                                value={room}>{room}
+                                </option>;
                         })
-                    }
+                        }
+                    </select>
                 </div>
             </div>
         )

@@ -43,6 +43,7 @@ export default class register extends Component {
             password: this.state.password,
             password1: this.state.password1
         };
+        console.log(userToLogin.password, userToLogin.password1);
         if (userToLogin.password === userToLogin.password1) {
             console.log(userToLogin);
             axios.post('http://localhost:5000/users/add', userToLogin)
