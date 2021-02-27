@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-export default class login extends Component {
+export default class loginFailedAttempt extends Component {
     constructor(props) {
         super(props);
 
@@ -34,15 +34,8 @@ export default class login extends Component {
             username: this.state.username,
             password: this.state.password
         };
-        
-        const username = this.state.username;
-        const password = this.state.password;
 
         console.log(userToLogin);
-<<<<<<< HEAD
-        console.log(username);
-=======
->>>>>>> 2bff6376a0e68d8549cd69b209c1bddd8dc638b5
         axios.post('http://localhost:5000/users/login', userToLogin)
             .then(res => {
                 console.log(res.data);
@@ -77,7 +70,9 @@ export default class login extends Component {
                 <p></p>
                 <h3>Login</h3>
                 <form onSubmit={this.onSubmit}>
-
+                    <div className="form-group">
+                        <label>Your previous login attempt failed please try again</label>
+                    </div> 
                     <div className="form-group">
                         <label>Username</label>
                         <input type="text"

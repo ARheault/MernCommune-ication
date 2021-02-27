@@ -7,6 +7,7 @@ import login from "./components/login.component";
 import register from "./components/register.component";
 import homepage from "./components/homepage.component";
 import about from "./components/about-us.component";
+import loginFailedAttempt from "./components/loginFailedAttempt.component";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/login" exact component={login} />
       <Route path="/register" exact component={register} />
       <Route path="/about" exact component={about} />
+      <Route path="/loginFailedAttempt" exact component={loginFailedAttempt} />
     </div>
     </Router>
   );
