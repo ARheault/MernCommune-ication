@@ -7,10 +7,13 @@ export default class ChatList extends Component {
         super(props);
 
         this.onChangeCurrentRoom = this.onChangeCurrentRoom.bind(this);
+        this.onChangeRoomName = this.onChangeRoomName.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             rooms: [],
-            currentRoom: ''
+            currentRoom: '',
+            newRoom: ''
         };
     }
 
@@ -31,6 +34,29 @@ export default class ChatList extends Component {
             currentRoom: e.target.value
         });
     }
+    onChangeRoomName(e) {
+        this.setState({
+            newRoom: e.target.value
+        });
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+        const newRoom = {
+            roomName: this.state.newRoom,
+            date: Date.now()
+        };
+
+        console.log(newRoom);
+        axios.post('http://localhost:5000/rooms/add', newRoom)
+            .then(res => {
+                console.log(res.data);
+                // If I had access to the user who is logged in I would now add the room to them... but I don't know how to do that well.
+                // I'm guessing I have to do something for push updates.. but for now
+                window.location.reload();
+            });
+    }
+
 
     render() {
         return (
@@ -60,25 +86,38 @@ export default class ChatList extends Component {
                         </div>
                     ))}
                 {
-               /*
-                <div>
-                    <label>Chat rooms:</label>
-                    <select
-                        required
-                        className="form-control"
-                        value={this.state.currentRoom}
-                        onChange={this.onChangeCurrentRoom}>
-                        {this.state.rooms.map(function (room) {
-                            return <option
-                                key={room}
-                                value={room}>{room}
-                            </option>;
-                        })
-                        }
-                    </select>
-                </div>
-              */
-              }
+                    /*
+                     <div>
+                         <label>Chat rooms:</label>
+                         <select
+                             required
+                             className="form-control"
+                             value={this.state.currentRoom}
+                             onChange={this.onChangeCurrentRoom}>
+                             {this.state.rooms.map(function (room) {
+                                 return <option
+                                     key={room}
+                                     value={room}>{room}
+                                 </option>;
+                             })
+                             }
+                         </select>
+                     </div>
+                   */
+                }
+                <form onSubmit={this.onSubmit}>
+                    <div className="form-group">
+                        <label>New Room: </label>
+                        <input type="text"
+                            className="form-control"
+                            value={this.state.newRoom}
+                            onChange={this.onChangeRoomName}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <input type="submit" value="send" className="btn btn-primary" />
+                    </div>
+                </form>
             </div>
         )
     }
