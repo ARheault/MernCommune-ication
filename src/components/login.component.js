@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookies';
 
 export default class login extends Component {
     constructor(props) {
@@ -29,6 +30,7 @@ export default class login extends Component {
     }
 
     onSubmit(e) {
+        if(!Cookies.get(this.state.username)){
         e.preventDefault();
         const userToLogin = {
             username: this.state.username,
@@ -40,6 +42,7 @@ export default class login extends Component {
             .then(res => {
                 console.log(res.data);
                 if(res.data === 'success'){
+                    Cookies.set(this.state.username);
                     window.location = '/';
                 }
                 else{
@@ -47,6 +50,10 @@ export default class login extends Component {
                 }
             }
             );
+        }
+        else{
+            window.location = '/';
+        }
     }
 
     render() {
