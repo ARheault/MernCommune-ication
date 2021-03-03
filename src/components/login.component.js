@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Cookies from 'js-cookies';
+import Cookies from 'js-cookie';
 
 export default class login extends Component {
     constructor(props) {
@@ -30,29 +30,33 @@ export default class login extends Component {
     }
 
     onSubmit(e) {
-        if(!Cookies.get(this.state.username)){
         e.preventDefault();
-        const userToLogin = {
-            username: this.state.username,
-            password: this.state.password
-        };
-        
-        console.log(userToLogin);
-        axios.post('http://localhost:5000/users/login', userToLogin)
-            .then(res => {
-                console.log(res.data);
-                if(res.data === 'success'){
-                    Cookies.set(this.state.username);
-                    window.location = '/';
+        if (Cookies.get('logged in') !== null) {
+            const userToLogin = {
+                username: this.state.username,
+                password: this.state.password
+            };
+
+            console.log(userToLogin);
+            axios.post('http://localhost:5000/users/login', userToLogin)
+                .then(res => {
+                    console.log(res.data);
+                    if (res.data === 'success') {
+                        Cookies.set('username', this.state.username);
+                        Cookies.set('loggedIn', true);
+                        console.log(Cookies.get('username'));
+                        console.log(Cookies.get('loggedIn'));
+
+                       // window.location = '/';
+                    }
+                    else {
+                     //   window.location = '/loginFailedAttempt';
+                    }
                 }
-                else{
-                    window.location = '/loginFailedAttempt';
-                }
-            }
-            );
-        }
-        else{
-            window.location = '/';
+                );
+       }
+        else {
+         //   window.location = '/';
         }
     }
 

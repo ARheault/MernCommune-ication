@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Cookie from 'js-cookie';
 
 export default class chatroom extends Component {
     constructor(props) {

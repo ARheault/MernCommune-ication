@@ -40,10 +40,10 @@ export default class loginFailedAttempt extends Component {
             .then(res => {
                 console.log(res.data);
                 if(res.data === 'success'){
-                    window.location = '/';
+                   // window.location = '/';
                 }
                 else{
-                    window.location = '/loginFailedAttempt';
+                  //  window.location = '/loginFailedAttempt';
                 }
             }
             );
