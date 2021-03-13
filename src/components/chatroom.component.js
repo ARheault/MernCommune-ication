@@ -13,7 +13,7 @@ export default class chatroom extends Component {
         this.state = {
             currentRoom: this.props.match.params.id,
             messages: [],
-            user: 'testForNow', // Need to figure out how to get the user maybe a global login file to inclue
+            user: Cookie.get('username'),
             newMessage: ''
         };
         console.log(this.state);

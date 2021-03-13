@@ -31,13 +31,13 @@ export default class login extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        if (Cookies.get('logged in') !== null) {
+        console.log(Cookies.get('firsttime'));
+        if (Cookies.get('firsttime') === 'true') {
             const userToLogin = {
                 username: this.state.username,
                 password: this.state.password
             };
 
-            console.log(userToLogin);
             axios.post('http://localhost:5000/users/login', userToLogin)
                 .then(res => {
                     console.log(res.data);
@@ -46,17 +46,17 @@ export default class login extends Component {
                         Cookies.set('loggedIn', true);
                         console.log(Cookies.get('username'));
                         console.log(Cookies.get('loggedIn'));
-
-                       // window.location = '/';
+                        window.location = '/';
                     }
                     else {
-                     //   window.location = '/loginFailedAttempt';
+                        window.location.reload();
                     }
                 }
                 );
        }
         else {
-         //   window.location = '/';
+            console.log(Cookies.get());
+            window.location = '/';
         }
     }
 

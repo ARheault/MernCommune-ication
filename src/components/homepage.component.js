@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 export default class homePage extends Component {
+    constructor(){
+        super();
+        Cookies.set('firsttime', true);
+    }
     render() {
         return (
             <div>

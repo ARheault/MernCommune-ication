@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Cookie from 'js-cookie';
 
 export default class ChatList extends Component {
     constructor(props) {
@@ -8,25 +9,34 @@ export default class ChatList extends Component {
 
         this.onChangeCurrentRoom = this.onChangeCurrentRoom.bind(this);
         this.onChangeRoomName = this.onChangeRoomName.bind(this);
+        this.onChangeroomToDelete = this.onChangeroomToDelete.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onDelete = this.onDelete.bind(this);
 
         this.state = {
             rooms: [],
             currentRoom: '',
-            newRoom: ''
+            newRoom: '',
+            currUser: '',
+            roomToDelete: ''
         };
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/rooms/')
-            .then(response => {
-                if (response.data.length > 0) {
-                    console.log(response.data);
-                    this.setState({
-                        rooms: response.data.map(room => room.roomName),
-                    });
-                }
-            });
+        if (Cookie.get('loggedIn') === 'true') {
+            this.state.currUser = Cookie.get('username');
+            axios.get('http://localhost:5000/rooms/')
+                .then(response => {
+                    if (response.data.length > 0) {
+                        this.setState({
+                            rooms: response.data.map(room => room.roomName),
+                        });
+                    }
+                });
+        }
+        else {
+            window.location = '/login';
+        }
     }
 
     onChangeCurrentRoom(e) {
@@ -37,6 +47,12 @@ export default class ChatList extends Component {
     onChangeRoomName(e) {
         this.setState({
             newRoom: e.target.value
+        });
+    }
+
+    onChangeroomToDelete(e) {
+        this.setState({
+            roomToDelete: e.target.value
         });
     }
 
@@ -51,8 +67,18 @@ export default class ChatList extends Component {
         axios.post('http://localhost:5000/rooms/add', newRoom)
             .then(res => {
                 console.log(res.data);
-                // If I had access to the user who is logged in I would now add the room to them... but I don't know how to do that well.
-                // I'm guessing I have to do something for push updates.. but for now
+                axios.post('http://localhost:5000/users/joinroom', this.state.currUser);
+                window.location.reload();
+            });
+    }
+
+    onDelete(e) {
+        e.preventDefault();
+        const roomToDelete = this.state.roomToDelete;
+        console.log(roomToDelete);
+        axios.post('http://localhost:5000/rooms/delete/', roomToDelete)
+            .then(res => {
+                console.log(res.data);
                 window.location.reload();
             });
     }
@@ -78,7 +104,6 @@ export default class ChatList extends Component {
                 {
                     this.state.rooms.map((chatroom) => (
                         <div key={chatroom} className="chatroom">
-                            {console.log(chatroom)}
                             <div>{chatroom}</div>
                             <Link to={"/chatroom/" + chatroom}>
                                 <div className="join">Join</div>
@@ -86,24 +111,6 @@ export default class ChatList extends Component {
                         </div>
                     ))}
                 {
-                    /*
-                     <div>
-                         <label>Chat rooms:</label>
-                         <select
-                             required
-                             className="form-control"
-                             value={this.state.currentRoom}
-                             onChange={this.onChangeCurrentRoom}>
-                             {this.state.rooms.map(function (room) {
-                                 return <option
-                                     key={room}
-                                     value={room}>{room}
-                                 </option>;
-                             })
-                             }
-                         </select>
-                     </div>
-                   */
                 }
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
@@ -115,11 +122,23 @@ export default class ChatList extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="send" className="btn btn-primary" />
+                        <input type="submit" value="Create Room" className="btn btn-primary" />
+                    </div>
+                </form>
+                <form onDelete={this.onDelete}>
+                    <div className="form-group">
+                        <label>Delete Room: </label>
+                        <input type="text"
+                            className="form-control"
+                            value={this.state.roomToDelete}
+                            onChange={this.onChangeroomToDelete}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <input type="submit" value="Delete Room" className="btn btn-primary" />
                     </div>
                 </form>
             </div>
         )
     }
-
 }

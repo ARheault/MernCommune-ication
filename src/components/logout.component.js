@@ -9,10 +9,12 @@ export default class aboutus extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    onSubmit() {
-        if (Cookie.get() !== null) {
+    onSubmit(e) {
+        e.preventDefault();
+        if (Cookie.get() !== null && Cookie.get('loggedIn') !== false) {
             Cookie.set('loggedIn', false);
-        } 
+        }
+        window.location = '/'; 
     }
 
     render() {
@@ -32,7 +34,7 @@ export default class aboutus extends Component {
                 </nav>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
-                        <input type="submit" value="logout" className="btn-btn-primary" />
+                        <input type="submit" value="logout" className="btn btn-primary" />
                     </div>
                 </form>
             </div>
