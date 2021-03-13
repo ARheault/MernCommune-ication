@@ -35,20 +35,23 @@ router.route('/getchat').get(async (req, res) => {
 });
 
 router.route('/delete').post((req,res) => {
-    /*const roomName = req.body.roomName;
-    console.log(roomName); */
+    // Structure our query
     const query = {"roomName": req.body.roomName};
-    console.log(query);
-    
-    Room.deleteOne(query)
-    .then(result => console.log('Deleted ' + req.body.roomName))
-    .catch(err => console.error('Delete failed'));
+   
+    Room.deleteOne(query, function(err, result) {
+        if(err){
+            res.send(err);
+        }
+    });
 
-    /*
-        Here I want to find the room and delete it, then use the chat model to delete all chats with the room name as well
-    */
-    const result = chat.deleteMany(query);
-    console.log(result);
+    // After deleting the room, we now want to make sure that we delete all of the messages to not waste space in the database.
+    chat.deleteMany({roomName: req.body.roomName}, function(err, result) {
+        if(err){
+            res.send(err);
+        }
+        else{
+            res.send(result);
+        }
+    });
 });
-
 module.exports = router;
