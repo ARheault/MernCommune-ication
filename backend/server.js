@@ -8,9 +8,9 @@ require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5000;
-
 app.use(cors());
 app.use(express.json());
+
 
 // Database configuration
 const uri = process.env.ATLAS_URI;
@@ -33,9 +33,21 @@ app.use('/events', eventRouter);
 app.use('/rooms', roomRouter);
 app.use('/chats', chatRouter);
 
+// I wanted to get socket.io working, but I do not have time and it works as is.
+app.get('/', (req, res) => {
+    });
 
-// listening
-app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
-    console.log(`I hope that worked!`);
+    // listening
+    const expressServer = app.listen(port, () => {
+    console.log(`Server is running on port: ${port}`)
+})
+
+const io = require('socket.io')(expressServer);
+
+io.on('connection', (socket) => {
+    console.log('a user connected');
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
 });
+});
+

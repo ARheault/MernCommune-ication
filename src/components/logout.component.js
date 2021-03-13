@@ -13,6 +13,7 @@ export default class aboutus extends Component {
         e.preventDefault();
         if (Cookie.get() !== null && Cookie.get('loggedIn') !== false) {
             Cookie.set('loggedIn', false);
+            Cookie.set('username', 'Not Logged In');
         }
         window.location = '/'; 
     }

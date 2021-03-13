@@ -18,7 +18,10 @@ export default class aboutus extends Component {
                     </ul>
                 </nav>
 
-                <p>This is the about us I am but a man trying to conquer machine</p>
+                <p>This project has not been easy, I have learned a lot and I'm excited to keep learning.
+                   I am almost done with my schooling, just a few short quarters away from finishing up
+                   and I hope that I have learned enough to be useful.
+                </p>
             </div>
         )
     }

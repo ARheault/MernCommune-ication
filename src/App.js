@@ -8,11 +8,13 @@ import homepage from "./components/homepage.component";
 import about from "./components/about-us.component";
 import chatroom from "./components/chatroom.component";
 import logout from "./components/logout.component";
+import deleteRoom from "./components/delete-room.component";
+
 
 function App() {
   return (
     <Router>
-    <div className="container">
+    <div style={{ backgroundImage: "url(/img/background.png)"}} className="container">
       <br/>
       <Route path="/" exact component={homepage} />
       <Route path="/chatList" exact component={ChatList} />
@@ -21,6 +23,7 @@ function App() {
       <Route path="/about" exact component={about} />
       <Route path="/chatroom/:id" exact component={chatroom} />
       <Route path="/logout" exact component={logout} />
+      <Route path="/deleteRoom" exact component={deleteRoom} /> 
     </div>
     </Router>
   );

@@ -69,6 +69,9 @@ export default class chatroom extends Component {
                         <li className="about">
                             <Link to="/about">About us</Link>
                         </li>
+                        <li className="chatList">
+                            <Link to='/chatlist'>Back to Chat List</Link>
+                        </li>
                     </ul>
                 </nav>
                 <div key={this.currentRoom} className="currentRoom">

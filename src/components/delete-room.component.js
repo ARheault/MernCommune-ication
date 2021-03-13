@@ -7,14 +7,12 @@ export default class ChatList extends Component {
     constructor(props) {
         super(props);
 
-        this.onChangeCurrentRoom = this.onChangeCurrentRoom.bind(this);
         this.onChangeRoomName = this.onChangeRoomName.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             rooms: [],
-            currentRoom: '',
-            newRoom: '',
+            deleteRoom: '',
             currUser: '',
         };
     }
@@ -36,37 +34,25 @@ export default class ChatList extends Component {
         }
     }
 
-    onChangeCurrentRoom(e) {
-        this.setState({
-            currentRoom: e.target.value
-        });
-    }
     onChangeRoomName(e) {
         this.setState({
-            newRoom: e.target.value
-        });
-    }
-
-    onChangeroomToDelete(e) {
-        this.setState({
-            roomToDelete: e.target.value
+            deleteRoom: e.target.value
         });
     }
 
     onSubmit(e) {
         e.preventDefault();
-        const newRoom = {
-            roomName: this.state.newRoom,
-            date: Date.now()
+        const roomToDelete = {
+            roomName: this.state.deleteRoom
         };
 
-        console.log(newRoom);
-        axios.post('http://localhost:5000/rooms/add', newRoom)
+        console.log(roomToDelete);
+        axios.post('http://localhost:5000/rooms/delete/', roomToDelete)
             .then(res => {
                 console.log(res.data);
-                axios.post('http://localhost:5000/users/joinroom', this.state.currUser);
-                window.location.reload();
             });
+            window.location.reload();
+
     }
 
     render() {
@@ -84,29 +70,26 @@ export default class ChatList extends Component {
                         </li>
                     </ul>
                 </nav>
-                <p>Chat Rooms:</p>
-                <Link to="/deleteRoom" className="nav-link">Delete Room</Link>
 
+                <p>Chat Rooms:</p>
+                <Link to="/chatlist" className="nav-link">Join or Create Room</Link>
                 {
                     this.state.rooms.map((chatroom) => (
                         <div key={chatroom} className="chatroom">
                             <div>{chatroom}</div>
-                            <Link to={"/chatroom/" + chatroom}>
-                                <div className="join">Join</div>
-                            </Link>
                         </div>
                     ))}
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
-                        <label>New Room: </label>
+                        <label>Room to Delete: </label>
                         <input type="text"
                             className="form-control"
-                            value={this.state.newRoom}
+                            value={this.state.deleteRoom}
                             onChange={this.onChangeRoomName}
                         />
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Create Room" className="btn btn-primary" />
+                        <input type="submit" value="Delete Room" className="btn btn-primary" />
                     </div>
                 </form>
             </div>
