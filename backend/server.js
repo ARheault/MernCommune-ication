@@ -33,6 +33,9 @@ app.use('/events', eventRouter);
 app.use('/rooms', roomRouter);
 app.use('/chats', chatRouter);
 
+require('./models/chat.model');
+const Message = mongoose.model("Chat");
+
 // I wanted to get socket.io working, but I do not have time and it works as is.
 app.get('/', (req, res) => {
     });
@@ -40,12 +43,26 @@ app.get('/', (req, res) => {
     // listening
     const expressServer = app.listen(port, () => {
     console.log(`Server is running on port: ${port}`)
+
+
 })
 
 const io = require('socket.io')(expressServer);
 
 io.on('connection', (socket) => {
     console.log('a user connected');
+
+    socket.on('chat message', (msg) => {
+        io.emit('chat messge', msg);
+
+        const newChat = new Message({
+            senderName:msg.senderName,
+            message:msg.message,
+            roomName:msg.roomName,
+            date: date.now()
+        });
+        newChat.save();
+    });
     socket.on('disconnect', () => {
         console.log('user disconnected');
 });
